@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa com Trilhas</title>
+
+    <!-- Link CSS do Mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <style>
+        body { margin: 0; padding: 0; }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        .mapboxgl-popup-content {
+            background-image: url(img/fundo.png);
+            background-size: contain;
+            background-repeat: no-repeat; 
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .mapboxgl-popup-content h4 {
+            color: #4e0801;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 0;
+            text-align: center;
+        }
+        .mapboxgl-popup-tip {
+            border-top-color: rgba(255, 255, 255, 0.9);
+        }
+        #trail-name {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
+            color: #4e0801;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        
+@media(max-width: 1000px) {
+    h1{
+        display: none;
+    }
+}
+#toggle-3d-button {
+            position: absolute;
+            top: 150px;
+            right: 10px;
+            z-index: 1001;
+            padding: 10px;
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+    </style>
+</head>
+<body>
+
+
+    <div id="trail-name">Trilha Morro do Cialta</div>
+    
+    <div class="loader"></div>
+
+    <div class="hide" id="map"></div>
+
+    <h1>Segure o 'Ctrl', clique e arraste o mouse para ver em 3D</h1>
+
+
+    <!-- Botão de alternância para visualização 3D -->
+    <button id="toggle-3d-button" onclick="toggle3DView()">Alternar 3D</button>
+
+    <!-- Script JS do Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js"></script>
+
+    <script>
+
+
+        // Adicione o seu token de acesso da API Mapbox
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZjcHc2ZzA2Nm0ya29vejJuY2RiNmQifQ.UTVpTIpiYeCfsYxBp9h6kg';
+
+        // Inicializa o mapa
+       const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/cris-lira/cm1wuuovy012m01pd11wh2ffm',
+            center: [-46.61167970267999,-24.082905125329816],
+            zoom: 14
+        });
+
+        
+        // Adicionar marcadores de início e fim como fixos
+        new mapboxgl.Marker({ color: '#620417', })
+        .setLngLat([-46.60824209337534,-24.086008225711126])
+        .setPopup(new mapboxgl.Popup().setHTML("<h4>Início da Trilha</h4>"))
+        .addTo(map);
+        
+            new mapboxgl.Marker({ color: '#620417', })
+       .setLngLat([-46.611767579431984,-24.077223451103436])
+       .setPopup(new mapboxgl.Popup().setHTML("<h4>Fim da Trilha</h4>"))
+       .addTo(map);
+
+
+       // Dados GeoJSON para a rota personalizada entre os pontos
+       const route = {
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                        [-46.60824209337534,-24.086008225711126], //COMEÇO TRILHA
+                        [  -46.60849124063333,-24.085928835788238     ],
+                        [    -46.60888098730831,-24.085732820717197   ],
+                        [    -46.60898934987782,-24.085655707918818   ],
+                        [   -46.609039080940335,-24.085597602658012    ],
+                        [      -46.60905499750277,-24.085539500473757 ],
+                        [ -46.609058977238504,-24.085452352109144      ],
+                        [  -46.60902314044358,-24.085321675745888    ],
+                        [     -46.60896348382542,-24.085116532862486  ],
+                        [  -46.60897540468463,-24.085049328384244     ],
+                        [     -46.609011199879006,-24.084985778224635  ],
+                        [     -46.60909968619521,-24.08488518125114  ],
+                        [    -46.60927621383442,-24.084765229940004   ],
+                        [   -46.60935300777595,-24.084716236841217    ],
+                        [     -46.6094750154212,-24.08470312514612  ],
+                        [     -46.60958734594422,-24.084701309440376  ],
+                        [    -46.60971372884248,-24.084717916895812   ],
+                        [  -46.60980875135954,-24.084713750567047     ],
+                        [     -46.61008390284488,-24.08465500065911  ],
+                        [   -46.61024745881542,-24.084644870421528    ],
+                        [   -46.6105440197631,-24.084696735196843    ],
+                        [   -46.61069139608006,-24.084775768466187    ],
+                        [   -46.61089234307602,-24.084951621702587    ],
+                        [  -46.61138678812705,-24.08523062640525     ],
+                        [      -46.611504984247546,-24.085236109890815 ],
+                        [   -46.61173195859595,-24.085204424284086    ],
+                        [   -46.611865003136444,-24.085224200384843    ],
+                        [     -46.61196444160612,-24.08526169261927  ],
+                        [   -46.61204842242148,-24.085319033573725    ],
+                        [   -46.61215902560798,-24.08542213232431    ],
+                        [   -46.612522981231194,-24.085787824188372    ],
+                        [    -46.612632101784726,-24.08582522282306   ],
+                        [   -46.612778667439926,-24.085833007570173    ],
+                        [   -46.61292544001478,-24.08580780712292    ],
+                        [    -46.61304474751296,-24.085761132647022   ],
+                        [     -46.61348211160205,-24.085372925651598  ],
+                        [    -46.6135668630547,-24.08519024458937   ],
+                        [    -46.61359160898013,-24.084958684867672   ],
+                        [     -46.61355681419843,-24.08454765967464  ],
+                        [     -46.61365106859182,-24.084173532205426  ],
+                        [   -46.61396204099864,-24.083742418880576    ],
+                        [     -46.61403448045402,-24.08358555059722  ],
+                        [  -46.61407489447731,-24.083249026145495     ],
+                        [   -46.61404638596312,-24.083123682535287    ],
+                        [ -46.61388486660701,-24.082896059892363      ],
+                        [   -46.61339705536338,-24.082563367734295    ],
+                        [     -46.61331449510581,-24.082467810818272  ],
+                        [   -46.61326217847508,-24.082399842448154    ],
+                        [     -46.61324808808598,-24.082300657507872  ],
+                        [   -46.61329039620625,-24.081984834443432    ],
+                        [   -46.61322804167398,-24.081669960334878    ],
+                        [   -46.61277513760979,-24.081014650742887    ],
+                        [    -46.61254130663224,-24.080602575358753   ],
+                        [     -46.612399823480246,-24.080313558172648  ],
+                        [     -46.61198725078401,-24.079030195152882  ],
+                        [  -46.61186179753702,-24.078246107223023     ],
+                        [   -46.61178840593092,-24.07759133925461    ],
+                        [   -46.611767579431984,-24.077223451103436    ]//fim
+                ]
+            }
+        };
+    
+
+        // Adiciona a fonte e a camada da rota ao mapa
+        map.on('load', function() {
+            map.addSource('route', {
+                "type": "geojson",
+                "data": route
+            });
+
+            map.addLayer({
+                "id": "route",
+                "type": "line",
+                "source": "route",
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#4e0801",
+                    "line-width": 10
+                }
+            });
+        });
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.NavigationControl());
+
+
+        // Função para alternar entre visualização 2D e 3D
+        function toggle3DView() {
+            const botao = document.getElementById("toggle-3d-button")
+            const currentPitch = map.getPitch();
+            if (currentPitch === 0) {
+                map.easeTo({ pitch: 60, bearing: -17.6, duration: 1000 });
+                botao.textContent = "Alternar 2D";
+            } else {
+                map.easeTo({ pitch: 0, bearing: 0, duration: 1000 });
+                botao.textContent = "Alternar 3D";
+            }
+        }
+
+    </script>
+</body>
+</html>

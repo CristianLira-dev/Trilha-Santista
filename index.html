@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha Santista</title>
+
+  <!--GOOGLE FONTS-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700&display=swap"
+    rel="stylesheet">
+  <!--BOOTSTRAP-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/menu.css">
+
+  <!--Font Awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid d-flex justify-content-between">
+      <img src="img/Logo-header.png" alt="Logo da Trilha Santista" width="220px" height="auto">
+      <form class="d-flex me-2" role="search">
+        <input class="form-control me-2" id="buscar" type="search" placeholder="Pesquisar" aria-label="Search" oninput="filtrarCards()">
+        <div id="lupa"></div>
+        <a href="teladeperfil.html">
+          <i class="fas fa-user mt-2 img-perfil" style="font-size: 40px;"></i>
+        </a>
+        <a href="Mapas-Trilhas/Mapa-Baixada-Santista.html" class="link-trilhas">
+          <img src="img/localizacao-nav.png" width="100px" id="location" alt="">
+        </a>
+      </form>
+    </div>
+  </nav>
+
+  <main>
+
+    <section id="ErroBusca" class="hide">
+      <h1 class="text-center mt-4" style="color: #4e0801;">Nenhuma trilha encontrada!</h1>
+    </section>
+
+    <div class="container-fluid">
+      <div class="container-card mt-5 d-flex container">
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Prainha Xixová-Japuí</h3>
+            <i class="fa-regular fa-bookmark bookmark-icon" onclick="toggleCard('Prainha Xixová-Japuí', 'https://cdn.limbersoftware.com.br/img/bilhetes/7351/p-hAn222q6bR.webp', 'Trilha-Xixová-Japui.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://cdn.limbersoftware.com.br/img/bilhetes/7351/p-hAn222q6bR.webp" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Xixová-Japui.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Cachoeira do Melvi</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Cachoeira do Melvi', 'https://th.bing.com/th/id/OIP.t0GlOyMJohwaIC_dvVQbGQHaJ4?rs=1&pid=ImgDetMain', 'Trilha-melvi.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.t0GlOyMJohwaIC_dvVQbGQHaJ4?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-melvi.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Praia de Itaquitanduva</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Praia de Itaquitanduva', 'https://d16ulvhu93kpvn.cloudfront.net/2400x0/uploads/site/5278/image/2023/08/27/trilha-praia-itaquitanduva.jpg', 'Trilha-Itaquitanduva-Surfistas.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://d16ulvhu93kpvn.cloudfront.net/2400x0/uploads/site/5278/image/2023/08/27/trilha-praia-itaquitanduva.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Itaquitanduva-Surfistas.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Morro asa delta</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Morro asa delta', 'https://th.bing.com/th/id/R.c42563f98e19fadc2542d3bb7f48f27a?rik=CtklFIvVYFpF5Q&pid=ImgRaw&r=0', 'Trilha-Morro-Asa-Delta.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/R.c42563f98e19fadc2542d3bb7f48f27a?rik=CtklFIvVYFpF5Q&pid=ImgRaw&r=0" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Morro-Asa-Delta.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha Pico do Itaitins</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha Pico do Itaitins', 'https://th.bing.com/th/id/OIP.1BOwYmdK2gWeU4AxyAnxKAHaE8?rs=1&pid=ImgDetMain', 'Trilha-Itaitins.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.1BOwYmdK2gWeU4AxyAnxKAHaE8?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Itaitins.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Barra do Una</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Barra do Una', 'https://th.bing.com/th/id/OIP.feXTLugDXVxAX13154tmqwHaE8?rs=1&pid=ImgDetMain', 'Trilha-Barra-Una.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.feXTLugDXVxAX13154tmqwHaE8?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Barra-Una.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Juquiazinho</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Juquiazinho', 'https://th.bing.com/th/id/OIP.VjqRqek3pS8Ag_MJePSfnQHaFj?rs=1&pid=ImgDetMain', 'Trilha-Juquiazinho.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.VjqRqek3pS8Ag_MJePSfnQHaFj?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Juquiazinho.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Véu de noiva</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Véu de noiva', 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0b/09/08/08/veu-da-noiva-abencoado.jpg?w=1200&h=1200&s=1', 'Trilha-Véu-Noiva.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0b/09/08/08/veu-da-noiva-abencoado.jpg?w=1200&h=1200&s=1" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Véu-Noiva.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha Cachoeira do Saltão</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha Cachoeira do Saltão', 'https://www.saltao.com.br/wp-content/uploads/2015/04/foto-aerea-cachoeira-saltao-1024x768.jpg', 'Trilha-Saltão.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://www.saltao.com.br/wp-content/uploads/2015/04/foto-aerea-cachoeira-saltao-1024x768.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Saltão.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Rio Pilões</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Rio Pilões', 'https://smastr16.blob.core.windows.net/guiadeaps/2021/04/trilhario_ic0ee9bc5-9562-4667-873c-15bed2a08460.png', 'Trilha-Piloes.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://smastr16.blob.core.windows.net/guiadeaps/2021/04/trilhario_ic0ee9bc5-9562-4667-873c-15bed2a08460.png" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Piloes.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Lagoa Azul</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Lagoa Azul', 'https://i0.wp.com/arotaalternativaviagens.com/wp-content/uploads/2023/02/3E0E1C91-7A79-4AC1-8A02-E87B3C634F72.jpg?fit=1440%2C1800&ssl=1', 'Trilha-Lagoa-Azul.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://i0.wp.com/arotaalternativaviagens.com/wp-content/uploads/2023/02/3E0E1C91-7A79-4AC1-8A02-E87B3C634F72.jpg?fit=1440%2C1800&ssl=1" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Lagoa-Azul.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha da Praia Branca</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha da Praia Branca', 'https://th.bing.com/th/id/OIP.AAdehBwoDlwzwWOPkJ18pgHaFj?rs=1&pid=ImgDetMain', 'Trilha-Praia-Branca.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.AAdehBwoDlwzwWOPkJ18pgHaFj?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Praia-Branca.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha da Praia Preta</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha da Praia Preta', 'https://sigam.ambiente.sp.gov.br//sigam3/Repositorio/TRILHAFOTOS/TRILHARio_I6d0bb486-c945-497a-9389-af1bf2919a07.jpg', 'Trilha-Praia-Preta.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://sigam.ambiente.sp.gov.br//sigam3/Repositorio/TRILHAFOTOS/TRILHARio_I6d0bb486-c945-497a-9389-af1bf2919a07.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Praia-Preta.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha da Praia do Góes</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha da Praia do Góes', 'https://viajantecurioso.com.br/wp-content/uploads/2020/01/praia-goes.jpg', 'Trilha-Goes.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://viajantecurioso.com.br/wp-content/uploads/2020/01/praia-goes.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Goes.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha das Ruínas de Ermida</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha das Ruínas de Ermida', 'https://portalguaruja.tur.br/wp-content/uploads/2020/12/Ruinas-da-Ermida-de-Sto-Antonio-do-Guaibe-Reproducao-da-Internet-Portal-Guaruja-de-Turismo-2.-500x380.jpg', 'Trilha-Ruinas.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://portalguaruja.tur.br/wp-content/uploads/2020/12/Ruinas-da-Ermida-de-Sto-Antonio-do-Guaibe-Reproducao-da-Internet-Portal-Guaruja-de-Turismo-2.-500x380.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Ruinas.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha de Guaratuba</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha de Guaratuba', 'https://sigam.ambiente.sp.gov.br//sigam3/Repositorio/TRILHAFOTOS/TRILHARio_I6d0bb486-c945-497a-9389-af1bf2919a07.jpg', 'Trilha-guaratuba.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://sigam.ambiente.sp.gov.br//sigam3/Repositorio/TRILHAFOTOS/TRILHARio_I6d0bb486-c945-497a-9389-af1bf2919a07.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-guaratuba.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha Montserrat</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha Montserrat', 'https://th.bing.com/th/id/OIP.m8VNhFYBUZU4DlPJJus5MAHaFj?rs=1&pid=ImgDetMain', 'Trilha-Mont-Serrat.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.m8VNhFYBUZU4DlPJJus5MAHaFj?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Mont-Serrat.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha Da água</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha Da água', 'https://desviantes.blob.core.windows.net/desviantes/media/adventures/items/cefb6238c09022cd56bfaa1ac9329b4b.jpeg', 'Trilha-Dagua.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://desviantes.blob.core.windows.net/desviantes/media/adventures/items/cefb6238c09022cd56bfaa1ac9329b4b.jpeg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Dagua.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha da Pedra Selada</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha da Pedra Selada', 'https://turismodenatureza.com.br/wp-content/uploads/2023/04/trilha-parque-estadual-pedra-selada-1024x768.jpg', 'Trilha-Pedra-Selada.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://turismodenatureza.com.br/wp-content/uploads/2023/04/trilha-parque-estadual-pedra-selada-1024x768.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Pedra-Selada.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha da Cachoeira do Elefante</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha da Cachoeira do Elefante', 'https://www.viajali.com.br/wp-content/uploads/2022/03/cachoeira-do-elefante-14-1-730x913.jpg', 'Trilha-Cachoeira-Do-Elefante.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://www.viajali.com.br/wp-content/uploads/2022/03/cachoeira-do-elefante-14-1-730x913.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Cachoeira-Do-Elefante.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Travessia Rio Branco</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Travessia Rio Branco', 'https://th.bing.com/th/id/R.50c6e70f47d55c9f4065837ff4a5aa60?rik=792jSwY0oK40XA&riu=http%3a%2f%2fwww.gleicemere.com%2fwp-content%2fuploads%2f2019%2f08%2f1_nc05-44-04-768x510.jpg&ehk=hStAmHXWP2M%2b%2b9JCJbj5yG8xXqjn64A08N4t2rSvEo4%3d&risl=&pid=ImgRaw&r=0', 'Trilha-Rio-Branco.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/R.50c6e70f47d55c9f4065837ff4a5aa60?rik=792jSwY0oK40XA&riu=http%3a%2f%2fwww.gleicemere.com%2fwp-content%2fuploads%2f2019%2f08%2f1_nc05-44-04-768x510.jpg&ehk=hStAmHXWP2M%2b%2b9JCJbj5yG8xXqjn64A08N4t2rSvEo4%3d&risl=&pid=ImgRaw&r=0" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Rio-Branco.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha do Sapucaitava</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha do Sapucaitava', 'https://th.bing.com/th/id/OIP.i_w8BLjvHumqk-08tNd7mQHaEK?rs=1&pid=ImgDetMain', 'Trilha-Sapucaitava.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.i_w8BLjvHumqk-08tNd7mQHaEK?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Sapucaitava.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Poço das Antas</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Poço das Antas', 'https://th.bing.com/th/id/OIP.pLhfM_1Muu8DsnG_NBzMXgHaE8?rs=1&pid=ImgDetMain', 'Trilha-Poço-Antas.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.pLhfM_1Muu8DsnG_NBzMXgHaE8?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Poço-Antas.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Morro da Cialta</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Morro da Cialta', 'https://th.bing.com/th/id/OIP.K2XO1__wkygTjDHVdIrZFgHaC7?pid=ImgDet&w=474&h=187&rs=1', 'Trilha-Morro-Cialta.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.K2XO1__wkygTjDHVdIrZFgHaC7?pid=ImgDet&w=474&h=187&rs=1" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Morro-Cialta.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha Fortaleza Itaipu</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha Fortaleza Itaipu', 'https://media-cdn.tripadvisor.com/media/photo-s/0e/6e/08/93/vista-desde-o-mar.jpg', 'Trilha-Fortaleza-Itaipu.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://media-cdn.tripadvisor.com/media/photo-s/0e/6e/08/93/vista-desde-o-mar.jpg" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Fortaleza-Itaipu.html">ver mais</a>
+          </div>
+        </div>
+        <div class="card d-flex px-4 mx-auto">
+          <div class="card-header d-flex">
+            <h3 class="titulo">Trilha Laranjal</h3>
+            <i class="far fa-regular fa-bookmark fa-2x bookmark-icon" onclick="toggleCard('Trilha Laranjal', 'https://th.bing.com/th/id/OIP.k3ugeDVGZC0QzZC2bnuX-AHaEK?rs=1&pid=ImgDetMain', 'Trilha-Laranjal.html')"></i>
+          </div>
+          <div class="card-body d-flex">
+            <div class="container-img">
+              <img class="img-trilha" src="https://th.bing.com/th/id/OIP.k3ugeDVGZC0QzZC2bnuX-AHaEK?rs=1&pid=ImgDetMain" alt="">
+            </div>
+            <div class="container-texto">
+              <h5>Descrição:...</h5>
+              <h5>Desnível Positivo:...</h5>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="container-estrelas d-flex">
+              <p class="card-text d-flex text-end" style="font-size: 15px; color:#dde1c8"><small class="text-end">
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="fas fa-star fa-2x"></i>
+                  <i class="far fa-star fa-2x"></i>
+                </small></p>
+            </div>
+            <a href="Trilha-Laranjal.html">ver mais</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+  <script src="js/menu.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+body{
+    background-color: #dde1c8;
+}
+
+nav{
+    background-color: #b0ba96;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    
+}
+nav i {
+    color: #212529;
+}
+
+
+#location{
+    padding-bottom:10px 0px;
+}
+
+.texto-sem-risco{
+    color: #fafafa;
+}
+
+.texto-com-risco{
+    color: yellow;
+}
+
+.texto-muito-risco{
+    color: #4e0801;
+}
+
+a{
+    color: #4e0801;
+}
+
+i{
+    cursor: pointer;
+}
+
+.card-text{
+    margin: 0;
+}
+.hide{
+    display: none !important;
+}
+
+.estatisticas{
+    color: #dde1c8; 
+    margin-top: 25px;
+}
+button:hover{
+    filter: brightness(150%);
+    transition: linear .3s;
+}/* Galeria de imagens padrão */
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; 
+  }
+  
+  .image-gallery img {
+    width: 146px; 
+    height: 146px;
+    border-radius: 10px;
+    cursor: pointer;
+    object-fit: cover;
+  }
+  
+@media (max-width: 997px) {
+    .image-gallery img {
+        width: calc(51% - 9px); 
+        height: auto; 
+    }
+}
+
+@media (max-width: 768px) {
+    .image-gallery img {
+        width: calc(50% - 8px); 
+        height: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .image-gallery img {
+        width: 100%;
+        height: auto;
+    }
+}
+@media (max-width: 740px) {
+    .logo-header {
+        margin: 0 auto;
+    }
+    #nav-right{
+        margin: 0 55px;
+        gap: 50px;
+    }
+}
+
+    .vlibras-button {
+        bottom: 20px !important; /* Ajusta a posição vertical */
+        right: 20px !important;  /* Ajusta a posição horizontal */
+        z-index: 1000 !important; /* Mantém o botão acima de outros elementos */
+    }
+
+
+
+/*Loader abaixo*/
+
+.loader {
+    width: 48px;
+    height: 48px;
+    display: block;
+    margin: 250px auto;
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  .loader::after {
+    content: '';
+    width: 48px;
+    height: 48px;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    border-radius: 50% 50% 0;
+    border: 15px solid #4e0801;
+    transform: rotate(45deg) translate(0, 0);
+    box-sizing: border-box;
+    animation: animMarker 0.3s ease-in-out infinite alternate;
+  }
+  
+  .loader::before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 150%;
+    width: 24px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    animation: animShadow 0.3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes animMarker {
+    0% {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+  
+    100% {
+      transform: rotate(45deg) translate(-5px, -5px);
+    }
+  }
+  
+  @keyframes animShadow {
+    0% {
+      transform: scale(0.5);
+    }
+  
+    100% {
+      transform: scale(1);
+    }
+  }
+      

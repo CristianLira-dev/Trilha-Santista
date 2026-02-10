@@ -1,0 +1,40 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", sans-serif;
+}
+
+body {
+    background-color: #dde1c8;
+    min-height: 100vh;
+}
+
+nav {
+    background-color: #b0ba96;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#location {
+    padding-bottom: 20px;
+}
+
+a {
+    color: #354128;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    section {
+        margin: 20px;
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+

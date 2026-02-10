@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa com Trilhas</title>
+
+    <!-- Link CSS do Mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css"
+        rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .mapboxgl-popup-content {
+            background-image: url(img/fundo.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .mapboxgl-popup-content h4 {
+            color: #4e0801;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 0;
+            text-align: center;
+        }
+
+        .mapboxgl-popup-tip {
+            border-top-color: rgba(255, 255, 255, 0.9);
+        }
+
+        #trail-name {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
+            color: #4e0801;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+
+        @media(max-width: 1000px) {
+            h1 {
+                display: none;
+            }
+        }
+
+        #toggle-3d-button {
+            position: absolute;
+            top: 150px;
+            right: 10px;
+            z-index: 1001;
+            padding: 10px;
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="trail-name">Trilha Morro da Asa Delta</div>
+
+    <div class="loader"></div>
+
+    <div class="hide" id="map"></div>
+
+    <h1>Segure o 'Ctrl', clique e arraste o mouse para ver em 3D</h1>
+
+
+    <!-- Botão de alternância para visualização 3D -->
+    <button id="toggle-3d-button" onclick="toggle3DView()">Alternar 3D</button>
+
+    <!-- Script JS do Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js"></script>
+
+    <script>
+
+
+        // Adicione o seu token de acesso da API Mapbox
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZjcHc2ZzA2Nm0ya29vejJuY2RiNmQifQ.UTVpTIpiYeCfsYxBp9h6kg';
+
+        // Inicializa o mapa
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/cris-lira/cm1wuuovy012m01pd11wh2ffm',
+            center: [-46.35890056705972, -23.96467946932391],
+            zoom: 16
+        });
+
+
+        // Adicionar marcadores de início e fim como fixos
+        new mapboxgl.Marker({ color: '#620417', })
+            .setLngLat([-46.35414430237054, -23.96601267693198])
+            .setPopup(new mapboxgl.Popup().setHTML("<h4>Início da Trilha</h4>"))
+            .addTo(map);
+
+        new mapboxgl.Marker({ color: '#620417', })
+            .setLngLat([-46.36237609213234, -23.964820659959244])
+            .setPopup(new mapboxgl.Popup().setHTML("<h4>Fim da Trilha</h4>"))
+            .addTo(map);
+
+
+        // Dados GeoJSON para a rota personalizada entre os pontos
+        const route = {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [-46.35414430237054, -23.96601267693198], //COMEÇO TRILHA
+                    [-46.354170296420676, -23.965966485956272],
+                    [-46.354303751484, -23.965856848629244],
+                    [-46.354615127331584, -23.965760368041487],
+                    [-46.35471650185144, -23.96576916248918],
+                    [-46.35485583685684, -23.965763723787248],
+                    [-46.35511312282057, -23.965698058557848],
+                    [-46.35517985035224, -23.96566522593004],
+                    [-46.355504575545524, -23.965420437831014],
+                    [-46.35557412921838, -23.965325840581414],
+                    [-46.3556742928877, -23.965062022088745],
+                    [-46.355803932680146, -23.965110289071433],
+                    [-46.355915423699145, -23.965132466965656],
+                    [-46.35600036923705, -23.96511167518949],
+                    [-46.35608459242303, -23.96506860346041],
+                    [-46.35633150420395, -23.964896271315055],
+                    [-46.356540029980636, -23.964678153918157],
+                    [-46.35683721947734, -23.964448356532756],
+                    [-46.35724760283097, -23.964092251279126],
+                    [-46.35745501968208, -23.963844615029757],
+                    [-46.35747287536316, -23.96375610583408],
+                    [-46.357539263837594, -23.963482736624528],
+                    [-46.35760842415323, -23.963371584819342],
+                    [-46.357731417233964, -23.963205423805817],
+                    [-46.357978648626045, -23.962944167947384],
+                    [-46.35801276518518, -23.96285861419048],
+                    [-46.35804916799938, -23.96268649437758],
+                    [-46.35809285978513, -23.96260377782214],
+                    [-46.3581722264278, -23.962556223710138],
+                    [-46.358470860876224, -23.962378203121574],
+                    [-46.35872103077679, -23.962249650376094],
+                    [-46.358785772613885, -23.962177893490917],
+                    [-46.358785772613885, -23.962177893490917],
+                    [-46.358883412385495, -23.961910219513754],
+                    [-46.35889242528779, -23.961830603557658],
+                    [-46.35884886292769, -23.961672744187254],
+                    [-46.35884886292769, -23.961672744187254],
+                    [-46.358987512239, -23.961372198123414],
+                    [-46.35912474749952, -23.961204290129672],
+                    [-46.35920178088074, -23.961253441008353],
+                    [-46.35963859728304, -23.9613346804731],
+                    [-46.359754728899674, -23.961332484817973],
+                    [-46.359839625115825, -23.96129954997633],
+                    [-46.359951594285434, -23.96113170641354],
+                    [-46.36009596144115, -23.96098778731887],
+                    [-46.360239716155036, -23.960895102983812],
+                    [-46.360334614844504, -23.960855432920155],
+                    [-46.360471074959804, -23.96087562894867],
+                    [-46.36043103334782, -23.96111930936361],
+                    [-46.360726703420966, -23.961232242140824],
+                    [-46.36078156385639, -23.96129651467399],
+                    [-46.36084647515116, -23.961427573704313],
+                    [-46.36088554415909, -23.961565572263197],
+                    [-46.36085881728047, -23.961704400536547],
+                    [-46.36088121043261, -23.96180528485523],
+                    [-46.360954357680015, -23.96189398054875],
+                    [-46.36170853533278, -23.962401670866583],
+                    [-46.361762917187235, -23.962482144225135],
+                    [-46.361856844589425, -23.962824334742876],
+                    [-46.36186232722787, -23.963123882587652],
+                    [-46.36192775097629, -23.96330833546743],
+                    [-46.36199161612245, -23.96337084056249],
+                    [-46.36233901937379, -23.96346387019146],
+                    [-46.36241465065751, -23.963518367811915],
+                    [-46.362480406352745, -23.963612295966783],
+                    [-46.362496029653045, -23.963690817396937],
+                    [-46.36238488760566, -23.964057874453502],
+                    [-46.3623983982836, -23.964266391572153],
+                    [-46.36243637858573, -23.964433496158705],
+                    [-46.36251723061844, -23.96458778161106],
+                    [-46.36262695148989, -23.96470346913644],
+                    [-46.36237609213234, -23.964820659959244]//fim
+                ]
+            }
+        };
+
+
+        // Adiciona a fonte e a camada da rota ao mapa
+        map.on('load', function () {
+            map.addSource('route', {
+                "type": "geojson",
+                "data": route
+            });
+
+            map.addLayer({
+                "id": "route",
+                "type": "line",
+                "source": "route",
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#4e0801",
+                    "line-width": 8
+                }
+            });
+        });
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.NavigationControl());
+
+
+        // Função para alternar entre visualização 2D e 3D
+        function toggle3DView() {
+            const botao = document.getElementById("toggle-3d-button")
+            const currentPitch = map.getPitch();
+            if (currentPitch === 0) {
+                map.easeTo({ pitch: 60, bearing: -17.6, duration: 1000 });
+                botao.textContent = "Alternar 2D";
+            } else {
+                map.easeTo({ pitch: 0, bearing: 0, duration: 1000 });
+                botao.textContent = "Alternar 3D";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

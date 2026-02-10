@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa com Trilhas</title>
+
+    <!-- Link CSS do Mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <style>
+        body { margin: 0; padding: 0; }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        .mapboxgl-popup-content {
+            background-image: url(img/fundo.png);
+            background-size: contain;
+            background-repeat: no-repeat; 
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .mapboxgl-popup-content h4 {
+            color: #4e0801;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 0;
+            text-align: center;
+        }
+        .mapboxgl-popup-tip {
+            border-top-color: rgba(255, 255, 255, 0.9);
+        }
+        #trail-name {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
+            color: #4e0801;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        
+@media(max-width: 1000px) {
+    h1{
+        display: none;
+    }
+}
+#toggle-3d-button {
+            position: absolute;
+            top: 150px;
+            right: 10px;
+            z-index: 1001;
+            padding: 10px;
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+    </style>
+</head>
+<body>
+
+
+    <div id="trail-name">Trilha Barra do Una</div>
+    
+    <div class="loader"></div>
+
+    <div class="hide" id="map"></div>
+
+    <h1>Segure o 'Ctrl', clique e arraste o mouse para ver em 3D</h1>
+
+
+    <!-- Botão de alternância para visualização 3D -->
+    <button id="toggle-3d-button" onclick="toggle3DView()">Alternar 3D</button>
+
+    <!-- Script JS do Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js"></script>
+
+    <script>
+
+
+        // Adicione o seu token de acesso da API Mapbox
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZjcHc2ZzA2Nm0ya29vejJuY2RiNmQifQ.UTVpTIpiYeCfsYxBp9h6kg';
+
+        // Inicializa o mapa
+       const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/cris-lira/cm1wuuovy012m01pd11wh2ffm',
+            center: [-47.07208165586141,-24.42333195256758],
+            zoom: 13
+        });
+
+        
+        // Adicionar marcadores de início e fim como fixos
+        new mapboxgl.Marker({ color: '#620417', })
+        .setLngLat([-47.06890615735486,-24.403919260124695])
+        .setPopup(new mapboxgl.Popup().setHTML("<h4>Início da Trilha</h4>"))
+        .addTo(map);
+        
+            new mapboxgl.Marker({ color: '#620417', })
+       .setLngLat([-47.07029709824948,-24.44217373378237])
+       .setPopup(new mapboxgl.Popup().setHTML("<h4>Fim da Trilha</h4>"))
+       .addTo(map);
+
+
+       // Dados GeoJSON para a rota personalizada entre os pontos
+       const route = {
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                        [-47.06890615735486,-24.403919260124695], //COMEÇO TRILHa
+                        [  -47.0687746260659,-24.405332957155437    ],
+                        [  -47.06855428839327,-24.406045447596057    ],
+                        [    -47.06790514947755,-24.407151071589638   ],
+                        [     -47.06786935481895,-24.408187384012194  ],
+                        [    -47.0676055003274,-24.409294234799447   ],
+                        [    -47.06727865245887,-24.409520190598215   ],
+                        [   -47.06679060544295,-24.409766212633826    ],
+                        [  -47.066529279996104,-24.410009912938634     ],
+                        [   -47.065754174874,-24.41117394651505    ],
+                        [    -47.06521908611208,-24.411625000582006   ],
+                        [   -47.06499112560354,-24.411752781348213    ],
+                        [    -47.06442413935298,-24.411811122531034   ],
+                        [    -47.06320001959634,-24.411622929394923   ],
+                        [ -47.06256479141496,-24.41149429771332      ],
+                        [    -47.062032219832474,-24.41157753710499   ],
+                        [   -47.061792846291894,-24.41152110159203    ],
+                        [   -47.06137929128221,-24.411427097805543    ],
+                        [ -47.06115229100098,-24.411531550978438      ],
+                        [    -47.06098337837227,-24.411710696503704   ],
+                        [    -47.06089104329075,-24.411991325882354   ],
+                        [ -47.06090669668231,-24.412534163654      ],
+                        [   -47.061207942381685,-24.41294831531448    ],
+                        [ -47.06121910624657,-24.41335499794785      ],
+                        [   -47.0601237481045,-24.414956578151816    ],
+                        [  -47.05996747296729,-24.41532304454813     ],
+                        [  -47.05917261381549,-24.415962435865467     ],
+                        [   -47.05890913772416,-24.416255862382783    ],
+                        [     -47.05833168433841,-24.416489934418323  ],
+                        [     -47.05765127239323,-24.417013817647714  ],
+                        [   -47.05681904179636,-24.417803577685262    ],
+                        [    -47.056004704742065,-24.419141551416317   ],
+                        [   -47.05518948911592,-24.42073216496263    ],
+                        [   -47.05492066856354,-24.420894876005605    ],
+                        [   -47.05420861919208,-24.42107967080021    ],
+                        [   -47.05387938923502,-24.42121466418132    ],
+                        [     -47.05363537911538,-24.421426743661414  ],
+                        [    -47.05330818372849,-24.421729713729505   ],
+                        [   -47.05215070177161,-24.423383750007233    ],
+                        [  -47.05209377951388,-24.423500972507014     ],
+                        [   -47.05211577711236,-24.42366921704128    ],
+                        [     -47.052129096049754,-24.423819785549057  ],
+                        [    -47.052422747769214,-24.424692173522743   ],
+                        [    -47.05273746562881,-24.425253115638753   ],
+                        [     -47.05303858434934,-24.425946770230794  ],
+                        [ -47.053088164729644,-24.426332224138193     ],
+                        [    -47.05318949816993,-24.426645117225036   ],
+                        [  -47.05346662663527,-24.427024185982802     ],
+                        [   -47.0539678436717,-24.427361441525605    ],
+                        [ -47.05447451087525,-24.427521898306466      ],
+                        [    -47.054786080965556,-24.427783124879127   ],
+                        [   -47.05548429759662,-24.428519884690942    ],
+                        [   -47.0557079247578,-24.428581440459013    ],
+                        [     -47.05685206372257,-24.428576705401156  ],
+                        [  -47.057729297199955,-24.42824051576538     ],
+                        [   -47.05799742196655,-24.428315321688927    ],
+                        [    -47.05825225291804,-24.428476313897235   ],
+                        [   -47.05850412422862,-24.428835015865417    ],
+                        [  -47.05872805798066,-24.430375448062236     ],
+                        [     -47.05924584653084,-24.43112029538922  ],
+                        [  -47.06092758454648,-24.431871553487838     ],
+                        [    -47.06120189554335,-24.431945421785244   ],
+                        [     -47.06163272653532,-24.431976153840907  ],
+                        [  -47.062071529206094,-24.431914507876726     ],
+                        [    -47.062461248777026,-24.431771057818054   ],
+                        [     -47.062868121912146,-24.431466700408393  ],
+                        [  -47.064606720459835,-24.42990487522492     ],
+                        [   -47.06483457377985,-24.429855628035185    ],
+                        [    -47.06592019790688,-24.430147585915904   ],
+                        [   -47.066639614005055,-24.4302292379448    ],
+                        [     -47.0680109855781,-24.430892620991415  ],
+                        [-47.06867508999315,-24.431114671687396      ],
+                        [    -47.06908156787321,-24.431158872457516   ],
+                        [ -47.069393253888364,-24.43107906006705      ],
+                        [ -47.069542364798224,-24.431097139808074      ],
+                        [    -47.06963584269067,-24.43115151423592   ],
+                        [   -47.070001964436585,-24.431714169980424    ],
+                        [  -47.07005602943573,-24.431877208330775     ],
+                        [   -47.06997977529244,-24.43211739570141    ],
+                        [    -47.069520328942446,-24.432719216966746   ],
+                        [    -47.06947099283923,-24.43292737860932   ],
+                        [   -47.06952552160979,-24.43305503841998    ],
+                        [   -47.069736956775444,-24.433222545291187    ],
+                        [  -47.07016472759801,-24.4338728215357     ],
+                        [  -47.070232973548684,-24.434644656347402     ],
+                        [    -47.070345012936144,-24.435024544203245  ],
+                        [   -47.070601461772156,-24.43554573478862    ],
+                        [    -47.0705779750067,-24.435873356119316   ],
+                        [    -47.07037467457579,-24.436414590353053   ],
+                        [  -47.07023869263972,-24.437209158607757     ],
+                        [   -47.070368199664756,-24.43743265437672    ],
+                        [   -47.07083681000705,-24.437846660749486    ],
+                        [    -47.071173782919004,-24.43848333796754   ],
+                        [  -47.07146118935037,-24.438707079484203     ],
+                        [     -47.071679853740505,-24.438989062144174  ],
+                        [   -47.07182116516674,-24.43928125424776    ],
+                        [    -47.072026355518005,-24.439513498555485   ],
+                        [    -47.072070472884064,-24.43969038418183   ],
+                        [     -47.07194569498213,-24.43992515204981  ],
+                        [   -47.071582818581646,-24.440513043092153    ],
+                        [    -47.070550748898484,-24.441869470417103   ],
+                        [   -47.07029709824948,-24.44217373378237    ]//fim
+                ]
+            }
+        };
+    
+
+        // Adiciona a fonte e a camada da rota ao mapa
+        map.on('load', function() {
+            map.addSource('route', {
+                "type": "geojson",
+                "data": route
+            });
+
+            map.addLayer({
+                "id": "route",
+                "type": "line",
+                "source": "route",
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#4e0801",
+                    "line-width": 10
+                }
+            });
+        });
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.NavigationControl());
+
+
+        // Função para alternar entre visualização 2D e 3D
+        function toggle3DView() {
+            const botao = document.getElementById("toggle-3d-button")
+            const currentPitch = map.getPitch();
+            if (currentPitch === 0) {
+                map.easeTo({ pitch: 60, bearing: -17.6, duration: 1000 });
+                botao.textContent = "Alternar 2D";
+            } else {
+                map.easeTo({ pitch: 0, bearing: 0, duration: 1000 });
+                botao.textContent = "Alternar 3D";
+            }
+        }
+
+    </script>
+</body>
+</html>

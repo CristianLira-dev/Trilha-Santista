@@ -1,0 +1,30 @@
+
+	mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZiZWl6cjA2ZDIya3ExbGllazlsYjcifQ.bK9NGwQvBX08a3NqTvqLJw';
+    const coordinates = document.getElementById('coordinates');
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [0, 0],
+        zoom: 2
+    });
+
+    const marker = new mapboxgl.Marker({
+        draggable: true
+    })
+        .setLngLat([0, 0])
+        .addTo(map);
+
+    function onDragEnd() {
+        const lngLat = marker.getLngLat();
+        coordinates.style.display = 'block';
+        coordinates.innerHTML = `${lngLat.lng},${lngLat.lat}`;
+    }
+
+    marker.on('dragend', onDragEnd);
+
+
+
+
+
+https://docs.mapbox.com/mapbox-gl-js/example/drag-a-marker/

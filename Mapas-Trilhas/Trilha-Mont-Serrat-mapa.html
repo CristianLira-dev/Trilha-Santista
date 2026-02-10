@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa com Trilhas</title>
+
+    <!-- Link CSS do Mapbox -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css"
+        rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .mapboxgl-popup-content {
+            background-image: url(img/fundo.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .mapboxgl-popup-content h4 {
+            color: #4e0801;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 0;
+            text-align: center;
+        }
+
+        .mapboxgl-popup-tip {
+            border-top-color: rgba(255, 255, 255, 0.9);
+        }
+
+        #trail-name {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
+            color: #4e0801;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+
+        @media(max-width: 1000px) {
+            h1 {
+                display: none;
+            }
+        }
+
+        #toggle-3d-button {
+            position: absolute;
+            top: 150px;
+            right: 10px;
+            z-index: 1001;
+            padding: 10px;
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="trail-name">Trilha Mont Serrat</div>
+
+    <div class="loader"></div>
+
+    <div class="hide" id="map"></div>
+
+    <h1>Segure o 'Ctrl', clique e arraste o mouse para ver em 3D</h1>
+
+
+    <!-- Botão de alternância para visualização 3D -->
+    <button id="toggle-3d-button" onclick="toggle3DView()">Alternar 3D</button>
+
+    <!-- Script JS do Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js"></script>
+
+    <script>
+
+
+        // Adicione o seu token de acesso da API Mapbox
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZjcHc2ZzA2Nm0ya29vejJuY2RiNmQifQ.UTVpTIpiYeCfsYxBp9h6kg';
+
+        // Inicializa o mapa
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/cris-lira/cm1wuuovy012m01pd11wh2ffm',
+            center: [-46.329523391444724, -23.939049919114154],
+            zoom: 16
+        });
+
+
+        // Adicionar marcadores de início e fim como fixos
+        new mapboxgl.Marker({ color: '#620417', })
+            .setLngLat([-46.32872076542574, -23.937668226274525])
+            .setPopup(new mapboxgl.Popup().setHTML("<h4>Início da Trilha</h4>"))
+            .addTo(map);
+
+        new mapboxgl.Marker({ color: '#620417', })
+            .setLngLat([-46.33079188789404, -23.93975869906062])
+            .setPopup(new mapboxgl.Popup().setHTML("<h4>Fim da Trilha</h4>"))
+            .addTo(map);
+
+
+        // Dados GeoJSON para a rota personalizada entre os pontos
+        const route = {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [-46.32872076542574, -23.937668226274525], //COMEÇO TRILHA
+                    [-46.328723970961335, -23.93769394679282],
+                    [-46.32873703842813, -23.93776461246894],
+                    [-46.32878802231414, -23.937770564271332],
+                    [-46.328905641876304, -23.937770895854996],
+                    [-46.32897396678422, -23.937786632091573],
+                    [-46.32900350789336, -23.937821914518096],
+                    [-46.32901045294446, -23.937852867250115],
+                    [-46.32900356606015, -23.93788682450827],
+                    [-46.32896769804384, -23.93792880852969],
+                    [-46.32887663967705, -23.93798368655945],
+                    [-46.32879057091088, -23.93804347444842],
+                    [-46.32875089361244, -23.938092635462837],
+                    [-46.328716096886865, -23.93817402017389],
+                    [-46.328701748068454, -23.93825633587909],
+                    [-46.328697857575605, -23.938336325072086],
+                    [-46.32870156894984, -23.93843232235575],
+                    [-46.32867382823767, -23.938470448613216],
+                    [-46.32856661519932, -23.93844824591227],
+                    [-46.32838360315333, -23.938448886136484],
+                    [-46.32827545505879, -23.938456785166053],
+                    [-46.32814095752269, -23.938491543276996],
+                    [-46.32803802159734, -23.938535298135875],
+                    [-46.32793244353297, -23.93863030023786],
+                    [-46.32783768635136, -23.938687231272553],
+                    [-46.3276986668113, -23.9387745857359],
+                    [-46.32775968057982, -23.93887013984252],
+                    [-46.32788429566958, -23.939018296557492],
+                    [-46.32795168236336, -23.939069035251478],
+                    [-46.32812963310411, -23.9390759176934],
+                    [-46.32826517670293, -23.939117212272564],
+                    [-46.328332081718884, -23.939152348556348],
+                    [-46.32842433534981, -23.93928751914585],
+                    [-46.32851291562321, -23.939396718563827],
+                    [-46.32859725767673, -23.939459859736004],
+                    [-46.32868244754704, -23.939488137749294],
+                    [-46.32888858234844, -23.93963799647544],
+                    [-46.32908025475271, -23.939750576298948],
+                    [-46.329078718631735, -23.939800276908016],
+                    [-46.329169580422786, -23.939767978623934],
+                    [-46.32931281577109, -23.93975107672749],
+                    [-46.32950884036052, -23.93970190723809],
+                    [-46.32958712488562, -23.939669467099932],
+                    [-46.32981273771472, -23.939677764469437],
+                    [-46.33079188789404, -23.93975869906062]//fim
+                ]
+            }
+        };
+
+
+        // Adiciona a fonte e a camada da rota ao mapa
+        map.on('load', function () {
+            map.addSource('route', {
+                "type": "geojson",
+                "data": route
+            });
+
+            map.addLayer({
+                "id": "route",
+                "type": "line",
+                "source": "route",
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#4e0801",
+                    "line-width": 8
+                }
+            });
+        });
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.NavigationControl());
+
+
+        // Função para alternar entre visualização 2D e 3D
+        function toggle3DView() {
+            const botao = document.getElementById("toggle-3d-button")
+            const currentPitch = map.getPitch();
+            if (currentPitch === 0) {
+                map.easeTo({ pitch: 60, bearing: -17.6, duration: 1000 });
+                botao.textContent = "Alternar 2D";
+            } else {
+                map.easeTo({ pitch: 0, bearing: 0, duration: 1000 });
+                botao.textContent = "Alternar 3D";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

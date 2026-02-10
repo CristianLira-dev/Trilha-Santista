@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trilha Santista</title>
+
+<!--GOOGLE FONTS-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700&display=swap" rel="stylesheet">
+<!--BOOTSTRAP-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+<link rel="stylesheet" href="css/style.css">
+<script src="js/script.js" defer></script>
+ 
+<!--Font Awesome-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+</head>
+<body>
+  
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid d-flex justify-content-between">
+      <a href="menu.html">
+        <img src="img/Logo-header.png" alt="Logo da Trilha Santista" class="logo-header" width="220px" height="auto">
+      </a>
+      <div class="d-flex  me-2" id="nav-right">
+        <a href="teladeperfil.html" style="text-decoration: none; color: #212529;">
+          <i class="fas fa-user fa-3x ms-4 mt-3" alt="perfil"></i >
+          </a>
+          <a href="Mapas-Trilhas/Mapa-Baixada-Santista.html">
+            <img src="img/localizacao-nav.png" width="130px" height="70px"  id="location" alt="Localização">
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="loader"></div>
+
+
+  <!-- Inserção do VLibras -->
+<div vw class="enabled hide" id="Vlibras">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+
+  
+  
+      <div class="card hide" style="max-width: 1000px; border-radius: 30px; margin: 70px auto;  background-color: #929e77;">
+          <div class="d-flex justify-content-between">
+          <h2 class="ms-3" style="  font-family: Playfair Display SC, serif; color: #dde1c8;">Trilha Cachoeira do Elefante</h2>
+            <div class="clima-tempo mt-2 me-4 d-flex">
+           <img src="img/nuvem-clima.png" id="nuvem-clima" width="85px" height="50px" alt="nuvem">
+              <div class="lh-1" style="margin-left: -10px;">
+                <h6 id="chuva" class="m-0"><span></span></h6>
+                <h6 id="aviso-chuva"></h6>
+              </div>
+            </div>
+            <div class="icons mt-2 me-3 d-flex gap-2" style="color: #4e0801;">
+              <i id="comentarios" class="far fa-comment fa-flip-horizontal fa-2x" ></i>
+            </div>
+          </div>
+          
+          <div class="row g-0">
+            <div class="col-md-4">
+              
+
+              <div class="container text-center">
+                <div class="image-gallery">
+                  <img class="carousel-img" src="https://www.viajali.com.br/wp-content/uploads/2022/03/cachoeira-do-elefante-14-1-730x913.jpg" alt="Foto da Trilha">
+                  <img class="carousel-img" src="https://i0.wp.com/turismodevalor.com.br/wp-content/uploads/2024/09/402488337_3573239262995888_8719531178190757465_n.jpg?fit=1080%2C1080&ssl=1" alt="Foto da Trilha">
+                  <img class="carousel-img" src="https://www.exploradores.com.br/wp-content/uploads/2015/12/Rio-na-parte-alta-da-trilha.jpg" alt="Foto da Trilha">
+                  <img class="carousel-img" src="https://costanorte.com.br/media/uploads/2024/03/imagem-do-whatsapp-de-2024-03-13-as-142057_6a9233c8_w2142150820.jpg" alt="Foto da Trilha">
+                </div>
+                <a href="Mapas-Trilhas/Trilha-Elefante-mapa.html" target="_blank">
+                  <h3 class="ms-1 mt-2" style="  font-family: Playfair Display SC, serif;">Ver no Mapa <i class="fas fa-location-dot"></i></h3>
+                </a>
+              </div> 
+            </div>
+            
+            <div class="col-md-8">
+              <div class="card-body">
+                <p id="historia" class="card-text text-center"><br><br>A trilha tem uma história rica que remonta ao período áureo da 
+                  ferrovia em Paranapiacaba. A vila foi fundada no final do século XIX pela companhia inglesa São Paulo Railway, que
+                   construiu a primeira ferrovia paulista ligando o porto de Santos a Jundiaí1. A trilha recebeu esse nome devido à 
+                  impressionante formação rochosa próxima à cachoeira, que lembra a cabeça de um elefante.
+                      <br>
+                      <br>
+                      <br>
+                  <main id="comentarios-pessoas" class="hide">
+                    
+                    <div id="targetComents" class="card-text text-center ms-5 d-flex align-items-end gap-4 mb-4">
+                      <i class="fas fa-user fa-2x rounded-circle" style="background-color: #4e0801; color: #929e77;width: 60px; height:60px; padding: 10px 13px"></i>
+                      <div class="nome lh-1 text-start">
+                        Antônio                         
+                        <h4 class="m-0 p-1 ps-2" style="background-color: #b0ba96; border-radius: 39px;">Trilha muito bonita!!</h4>
+                      </div>
+                    </div>
+                    
+                    <div class="card-text text-center ms-5 d-flex align-items-end gap-4 mb-4">
+                        <i class="fas fa-user fa-2x rounded-circle" style="background-color: #4e0801; color: #929e77;width: 60px; height:60px; padding: 10px 13px"></i>
+                        <div class="nome lh-1 text-start">
+                          Gloria
+                          <h4 class="m-0 p-1 ps-2" style="background-color: #b0ba96; border-radius: 39px;">Irei mais vezes.</h4>
+                        </div>
+                      </div>
+                      
+                      <div class="card-text text-center ms-5 d-flex align-items-end gap-4 mb-4">
+                        <i class="fas fa-user fa-2x rounded-circle" style="background-color: #4e0801; color: #929e77;width: 60px; height:60px; padding: 10px 13px"></i>
+                        <div class="nome lh-1 text-start">
+                          Lucca
+                          <h4 class="m-0 p-1 ps-2" style="background-color: #b0ba96;border-radius: 39px;">Tive problemas com bixos</h4>
+                        </div>
+                      </div>
+                      
+                      <!-- Comentários que ficarão ocultos inicialmente -->
+                      <div id="more-comments" class="hide">
+                        <div class="card-text text-center ms-5 d-flex align-items-end gap-4 mb-4">
+                          <i class="fas fa-user fa-2x rounded-circle" style="background-color: #4e0801; color: #929e77;width: 60px; height:60px; padding: 10px 13px"></i>
+                          <div class="nome lh-1 text-start">
+                            Alessandro
+                            <h4 class="m-0 p-1 ps-2" style="background-color: #b0ba96; border-radius: 39px;">Trilha nota I</h4>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="d-flex justify-content-center ms-2">
+                        <button id="ver-mais" class="btn" style="background-color: #4e0801; color: #fafafa; padding: 5px; border-radius: 27px;">Ver mais</button>
+                      </div>
+                    </main>
+                    
+                    <div class="estatisticas">
+                      <div class="d-flex justify-content-between">
+                        <p >Distância: 6 km</p>
+                        <p class="card-text d-flex text-end" style="font-size: 15px;"><small class="text-end">
+                          <i class="fas fa-star fa-2x"></i>
+                          <i class="fas fa-star fa-2x"></i>
+                          <i class="fas fa-star fa-2x"></i>
+                          <i class="far fa-star fa-2x"></i>
+                          <i class="far fa-star fa-2x"></i>
+                        </small></p>
+                      </div>
+                    </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    </body>
+</html>
