@@ -77,7 +77,7 @@ function toggleCard(cardName, cardImage, cardLink) {
   const icon = event.target;
 
   if (isCardSaved(cardName)) {
-    // Remove o card
+    
     deleteCard(cardName);
     icon.classList.remove("fa-solid", "fas");
     icon.classList.add("fa-regular", "far");
@@ -87,7 +87,7 @@ function toggleCard(cardName, cardImage, cardLink) {
       loadSavedCards();
     }
   } else {
-    // Salva o card
+    
     if (saveCard(cardName, cardImage, cardLink)) {
       icon.classList.remove("fa-regular", "far");
       icon.classList.add("fa-solid", "fas");
