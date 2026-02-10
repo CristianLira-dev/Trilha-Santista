@@ -369,3 +369,59 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: #7a8665;
 }
+
+/* Hide Class - VERSÃO CORRIGIDA */
+.hide {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+}
+
+/* Estilos para quando estiver filtrando */
+.filtering .card:not(.hide) {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Ajuste no grid quando estiver filtrando */
+.container-card.filtering {
+    position: relative;
+    min-height: 300px;
+}
+
+/* Garantir que os cards ocultos não afetem o layout do grid */
+.card {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Quando um card está oculto, removê-lo completamente do fluxo do grid */
+.card.hide {
+    grid-row: unset !important;
+    grid-column: unset !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    transform: scale(0) !important;
+}
+
+/* Ajuste responsivo para quando estiver filtrando */
+@media (max-width: 768px) {
+    .container-card.filtering {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Para garantir que a mensagem de erro apareça corretamente */
+#ErroBusca {
+    display: none;
+    padding: 3rem 0;
+    animation: fadeIn 0.5s ease;
+}
+
+#ErroBusca:not(.hide) {
+    display: block !important;
+}

@@ -1,28 +1,41 @@
-// menu.js - Sistema de gerenciamento de trilhas salvas
-
 // Função para filtrar cards na busca
 function filtrarCards() {
-  const termoBusca = document.getElementById("buscar").value.toLowerCase();
-  const cards = document.querySelectorAll(".card");
-  let contador = 0;
-  const busca = document.getElementById("ErroBusca");
+    const termoBusca = document.getElementById("buscar").value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
+    let contador = 0;
+    const busca = document.getElementById("ErroBusca");
+    const containerCards = document.querySelector(".container-card");
 
-  cards.forEach((card) => {
-    const titulo = card.querySelector(".titulo").textContent.toLowerCase();
-
-    if (titulo.includes(termoBusca)) {
-      card.classList.remove("hide");
-      contador++;
-    } else {
-      card.classList.add("hide");
+    // Se não houver termo de busca, mostrar todos os cards
+    if (!termoBusca.trim()) {
+        cards.forEach((card) => {
+            card.classList.remove("hide");
+            card.style.display = "flex"; // Garante que o display flex seja mantido
+        });
+        if (busca) busca.classList.add("hide");
+        return;
     }
-  });
 
-  if (contador === 0) {
-    busca.classList.remove("hide");
-  } else {
-    busca.classList.add("hide");
-  }
+    cards.forEach((card) => {
+        const titulo = card.querySelector(".titulo").textContent.toLowerCase();
+        
+        if (titulo.includes(termoBusca)) {
+            card.classList.remove("hide");
+            card.style.display = "flex"; // Garante que o display flex seja mantido
+            contador++;
+        } else {
+            card.classList.add("hide");
+            card.style.display = "none"; // Esconde completamente
+        }
+    });
+
+    if (busca) {
+        if (contador === 0) {
+            busca.classList.remove("hide");
+        } else {
+            busca.classList.add("hide");
+        }
+    }
 }
 
 // ==================== SISTEMA DE CARDS SALVOS ====================
