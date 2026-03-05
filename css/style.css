@@ -171,3 +171,97 @@ button:hover{
     }
   }
       
+/* =========================
+   UI Refresh - páginas de trilha
+   ========================= */
+
+body {
+  background: linear-gradient(140deg, #edf2e4 0%, #dfe6cf 100%);
+}
+
+nav {
+  background: linear-gradient(135deg, #9eab80 0%, #b0ba96 100%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}
+
+body > .card {
+  border: 0;
+  border-radius: 22px !important;
+  background: #fff !important;
+  color: #2d3524;
+  box-shadow: 0 18px 42px rgba(42, 58, 23, 0.16);
+  overflow: hidden;
+}
+
+body > .card > .d-flex:first-child {
+  align-items: center;
+  padding: 1rem 1.4rem;
+  background: linear-gradient(90deg, #f5f8ee 0%, #edf3e3 100%);
+  border-bottom: 1px solid #e0e8d1;
+}
+
+body > .card h2 {
+  margin: 0;
+  color: #3f5a2a !important;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.4vw, 1.85rem);
+}
+
+body > .card .card-body {
+  padding: 1.25rem 1.5rem 1.4rem;
+}
+
+#historia {
+  background: #f8fbf4;
+  border: 1px solid #e2ead5;
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  line-height: 1.65;
+  color: #2d3524;
+}
+
+.image-gallery img {
+  border: 2px solid #e6edd9;
+  box-shadow: 0 8px 14px rgba(41, 57, 25, 0.14);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.image-gallery img:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 14px 22px rgba(41, 57, 25, 0.22);
+}
+
+#comentarios-pessoas h4 {
+  background: #e8f0da !important;
+  color: #2f3f20;
+  border: 1px solid #d4e0bf;
+  padding: .5rem .8rem !important;
+}
+
+#ver-mais {
+  background: #3f5a2a !important;
+  color: #fff !important;
+  border: 0;
+  padding: .5rem 1rem !important;
+}
+
+#ver-mais:hover {
+  filter: brightness(1.08);
+}
+
+.estatisticas {
+  margin-top: 1rem;
+  color: #3e522d;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  body > .card {
+    margin: 24px 14px !important;
+  }
+
+  body > .card > .d-flex:first-child {
+    flex-wrap: wrap;
+    gap: .75rem;
+  }
+}
