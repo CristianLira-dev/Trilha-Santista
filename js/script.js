@@ -61,32 +61,32 @@ const showWeatherInfo = async () => {
     if (chanceDeChuva > 0) {
       if (chanceDeChuva < 50) { //verifica se a porcentagem é menor que 50% se sim aparece o texto e troca a cor da nuvem
         textRisco.innerText = "Risco de chuva";
-        textRisco.style.color = "#fafafa";
-        textRisco.style.fontWeight = "10";
-        chuva.style.color = "#fafafa";
-        chuva.style.fontWeight = "10";
+        textRisco.style.color = "#2d3524";
+        textRisco.style.fontWeight = "500";
+        chuva.style.color = "#2d3524";
+        chuva.style.fontWeight = "500";
         cloud.style.filter = "brightness(0) saturate(100%) invert(23%) sepia(15%) saturate(1005%) hue-rotate(46deg) brightness(90%) contrast(90%)";
       } else if (chanceDeChuva >= 50 && chanceDeChuva < 70) { //verifica se a porcentagem é maior que 50% e menor que 70% se sim aparece o texto e troca a cor da nuvem
         textRisco.innerText = "Chance alta de chuva";
-        textRisco.style.color = "#fafafa";
-        textRisco.style.fontWeight = "10";
-        chuva.style.color = "#fafafa";
-        chuva.style.fontWeight = "10";
+        textRisco.style.color = "#2d3524";
+        textRisco.style.fontWeight = "500";
+        chuva.style.color = "#2d3524";
+        chuva.style.fontWeight = "500";
         cloud.style.filter = "brightness(0) saturate(100%) invert(10%) sepia(65%) saturate(2103%) hue-rotate(345deg) brightness(97%) contrast(112%)";
       } else { //caso seja maior que 70% aparece outro texto mas mantem a cor da nuvem
         textRisco.innerText = "Irá chover nessa trilha hoje";
-        textRisco.style.color = "#fafafa";
-        textRisco.style.fontWeight = "10";
-        chuva.style.color = "#fafafa";
-        chuva.style.fontWeight = "10";
+        textRisco.style.color = "#2d3524";
+        textRisco.style.fontWeight = "500";
+        chuva.style.color = "#2d3524";
+        chuva.style.fontWeight = "500";
         cloud.style.filter = "brightness(0) saturate(100%) invert(10%) sepia(65%) saturate(2103%) hue-rotate(345deg) brightness(97%) contrast(112%)";
       }
     } else { //caso a porcemtagem seja igual a 0
       textRisco.innerText = "Sem previsão de chuva";
-      textRisco.style.color = "#fafafa";
-      textRisco.style.fontWeight = "10";
-      chuva.style.color = "#fafafa";
-      chuva.style.fontWeight = "10";    }
+      textRisco.style.color = "#2d3524";
+      textRisco.style.fontWeight = "500";
+      chuva.style.color = "#2d3524";
+      chuva.style.fontWeight = "500";    }
   } else { //caso não consiga encontrar dados na API
     textRisco.innerText = "Dados de previsão não disponíveis.";
   }
