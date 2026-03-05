@@ -34,4 +34,4 @@ Como o projeto é totalmente baseado em tecnologias Front-End nativas, rodá-lo 
 
 1. Clone este repositório:
    ```bash
-   git clone [https://github.com/CristianLira-dev/Trilha-Santista.git](https://github.com/CristianLira-dev/Trilha-Santista.git)
+   git clone https://github.com/CristianLira-dev/Trilha-Santista.git
