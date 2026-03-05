@@ -265,3 +265,68 @@ body > .card .card-body {
     gap: .75rem;
   }
 }
+/* Lightbox - páginas de trilha */
+.trail-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(0, 0, 0, 0.82);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.trail-lightbox-image {
+  max-width: min(95vw, 1100px);
+  max-height: 88vh;
+  border-radius: 14px;
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+}
+
+.trail-lightbox-close {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 2.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.trail-fav-btn {
+  border: 0;
+  background: #f3f7ea;
+  color: #3f5a2a;
+  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+.trail-fav-btn:hover {
+  transform: translateY(-2px);
+  background: #e6efd6;
+}
+
+.trail-fav-btn.saved {
+  background: #dceac4;
+}
+
+.favorite-status-modal {
+  position: fixed;
+  inset: auto 16px 18px auto;
+  z-index: 1300;
+}
+
+.favorite-status-content {
+  background: #2f3d21;
+  color: #fff;
+  padding: .75rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  font-weight: 500;
+}
