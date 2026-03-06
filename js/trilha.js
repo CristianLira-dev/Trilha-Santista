@@ -1,24 +1,37 @@
 function carregarTrilhas() {
+  console.log("[TRILHA] Iniciando carregarTrilhas()...");
+  
   // Só inicializa se houver um container #map e o Mapbox GL estiver carregado
-  if (!document.getElementById("map")) return;
-  if (typeof mapboxgl === "undefined") {
-    console.error("Mapbox GL JS não está carregado.");
+  if (!document.getElementById("map")) {
+    console.error("[TRILHA] ERRO: Container #map não encontrado no DOM");
     return;
   }
+  console.log("[TRILHA] Container #map encontrado");
+  
+  if (typeof mapboxgl === "undefined") {
+    console.error("[TRILHA] ERRO: Mapbox GL JS não está carregado.");
+    return;
+  }
+  console.log("[TRILHA] Mapbox GL JS carregado com sucesso");
 
+  console.log("[TRILHA] Configurando token de acesso Mapbox...");
   mapboxgl.accessToken =
-    "pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZiZWl6cjA2ZDIya3ExbGllazlsYjcifQ.bK9NGwQvBX08a3NqTvqLJw";
+    "pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZjcHc2ZzA2Nm0ya29vejJuY2RiNmQifQ.UTVpTIpiYeCfsYxBp9h6kg";
+  console.log("[TRILHA] Token configurado com sucesso");
 
-// Inicializa o mapa
+  // Inicializa o mapa
+  console.log("[TRILHA] Criando instância do mapa Mapbox...");
   const map = new mapboxgl.Map({
-  container: "map",
-  style: "mapbox://styles/cris-lira/cm1wuuovy012m01pd11wh2ffm",
-  center: [-46.63610606118726, -24.10141714023122],
-  zoom: 8.5,
-});
+    container: "map",
+    style: "mapbox://styles/cris-lira/cm1wuuovy012m01pd11wh2ffm",
+    center: [-46.63610606118726, -24.10141714023122],
+    zoom: 8.5,
+  });
+  console.log("[TRILHA] Mapa Mapbox criado com sucesso");
 
   // Expor o mapa globalmente para controles externos (ex: botão 3D)
   window._trilhaMap = map;
+  console.log("[TRILHA] Mapa exportado globalmente como window._trilhaMap");
 
 // Adicionar marcadores de início e fim como fixos
 new mapboxgl.Marker({ color: "#620417" })
@@ -1803,525 +1816,619 @@ const route27 = {
   },
 };
 
-map.on("load", function () {
-  // Adiciona a primeira fonte da rota
-  map.addSource("route1", {
+  // Event listeners para erros
+  map.on("error", function (error) {
+    console.error("[TRILHA] Erro no Mapbox:", error);
+    console.error("[TRILHA] Detalhes do erro:", error.message, error.error);
+  });
+
+  map.on("load", function () {
+    console.log("[TRILHA] Evento 'load' disparado - Mapa totalmente carregado");
+    console.log("[TRILHA] Começando a adicionar fontes e camadas das rotas...");
+    
+    // Adiciona a primeira fonte da rota
+    map.addSource("route1", {
     type: "geojson",
     data: route,
   });
 
   // Adiciona a camada da primeira rota
-  map.addLayer({
-    id: "route1",
-    type: "line",
-    source: "route1",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route1' adicionada");
+    map.addLayer({
+      id: "route1",
+      type: "line",
+      source: "route1",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route1' adicionada");
 
-  // Adiciona a segunda fonte da rota
-  map.addSource("route2", {
+    // Adiciona a segunda fonte da rota
+    console.log("[TRILHA] Adicionando route2...");
+    map.addSource("route2", {
     type: "geojson",
     data: route2,
   });
 
-  // Adiciona a camada da segunda rota
-  map.addLayer({
-    id: "route2",
-    type: "line",
-    source: "route2",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    // Adiciona a camada da segunda rota
+    console.log("[TRILHA] Fonte 'route2' adicionada");
+    map.addLayer({
+      id: "route2",
+      type: "line",
+      source: "route2",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route2' adicionada");
 
-  map.addSource("route3", {
+    console.log("[TRILHA] Adicionando route3...");
+    map.addSource("route3", {
     type: "geojson",
     data: route3,
   });
 
-  map.addLayer({
-    id: "route3",
-    type: "line",
-    source: "route3",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route3' adicionada");
+    map.addLayer({
+      id: "route3",
+      type: "line",
+      source: "route3",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route3' adicionada");
 
-  map.addSource("route4", {
+    console.log("[TRILHA] Adicionando route4...");
+    map.addSource("route4", {
     type: "geojson",
     data: route4,
   });
 
-  map.addLayer({
-    id: "route4",
-    type: "line",
-    source: "route4",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route4' adicionada");
+    map.addLayer({
+      id: "route4",
+      type: "line",
+      source: "route4",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route4' adicionada");
 
-  map.addSource("route5", {
+    console.log("[TRILHA] Adicionando route5...");
+    map.addSource("route5", {
     type: "geojson",
     data: route5,
   });
 
-  map.addLayer({
-    id: "route5",
-    type: "line",
-    source: "route5",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route5' adicionada");
+    map.addLayer({
+      id: "route5",
+      type: "line",
+      source: "route5",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route5' adicionada");
 
-  map.addSource("route6", {
+    console.log("[TRILHA] Adicionando route6...");
+    map.addSource("route6", {
     type: "geojson",
     data: route6,
   });
 
-  map.addLayer({
-    id: "route6",
-    type: "line",
-    source: "route6",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route6' adicionada");
+    map.addLayer({
+      id: "route6",
+      type: "line",
+      source: "route6",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route6' adicionada");
 
-  map.addSource("route7", {
+    console.log("[TRILHA] Adicionando route7...");
+    map.addSource("route7", {
     type: "geojson",
     data: route7,
   });
 
-  map.addLayer({
-    id: "route7",
-    type: "line",
-    source: "route7",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route7' adicionada");
+    map.addLayer({
+      id: "route7",
+      type: "line",
+      source: "route7",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route7' adicionada");
 
-  map.addSource("route8", {
+    console.log("[TRILHA] Adicionando route8...");
+    map.addSource("route8", {
     type: "geojson",
     data: route8,
   });
 
-  map.addLayer({
-    id: "route8",
-    type: "line",
-    source: "route8",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route8' adicionada");
+    map.addLayer({
+      id: "route8",
+      type: "line",
+      source: "route8",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route8' adicionada");
 
-  map.addSource("route9", {
+    console.log("[TRILHA] Adicionando route9...");
+    map.addSource("route9", {
     type: "geojson",
     data: route9,
   });
 
-  map.addLayer({
-    id: "route9",
-    type: "line",
-    source: "route9",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route9' adicionada");
+    map.addLayer({
+      id: "route9",
+      type: "line",
+      source: "route9",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route9' adicionada");
 
-  map.addSource("route10", {
+    console.log("[TRILHA] Adicionando route10...");
+    map.addSource("route10", {
     type: "geojson",
     data: route10,
   });
 
-  map.addLayer({
-    id: "route10",
-    type: "line",
-    source: "route10",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route10' adicionada");
+    map.addLayer({
+      id: "route10",
+      type: "line",
+      source: "route10",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route10' adicionada");
 
-  map.addSource("route11", {
+    console.log("[TRILHA] Adicionando route11...");
+    map.addSource("route11", {
     type: "geojson",
     data: route11,
   });
 
-  map.addLayer({
-    id: "route11",
-    type: "line",
-    source: "route11",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route11' adicionada");
+    map.addLayer({
+      id: "route11",
+      type: "line",
+      source: "route11",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route11' adicionada");
 
-  map.addSource("route12", {
+    console.log("[TRILHA] Adicionando route12...");
+    map.addSource("route12", {
     type: "geojson",
     data: route12,
   });
 
-  map.addLayer({
-    id: "route12",
-    type: "line",
-    source: "route12",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route12' adicionada");
+    map.addLayer({
+      id: "route12",
+      type: "line",
+      source: "route12",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route12' adicionada");
 
-  map.addSource("route13", {
+    console.log("[TRILHA] Adicionando route13...");
+    map.addSource("route13", {
     type: "geojson",
     data: route13,
   });
 
-  map.addLayer({
-    id: "route13",
-    type: "line",
-    source: "route13",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
-  map.addSource("route14", {
+    console.log("[TRILHA] Fonte 'route13' adicionada");
+    map.addLayer({
+      id: "route13",
+      type: "line",
+      source: "route13",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route13' adicionada");
+    
+    console.log("[TRILHA] Adicionando route14...");
+    map.addSource("route14", {
     type: "geojson",
     data: route14,
   });
 
-  map.addLayer({
-    id: "route14",
-    type: "line",
-    source: "route14",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
-  map.addSource("route15", {
+    console.log("[TRILHA] Fonte 'route14' adicionada");
+    map.addLayer({
+      id: "route14",
+      type: "line",
+      source: "route14",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route14' adicionada");
+    
+    console.log("[TRILHA] Adicionando route15...");
+    map.addSource("route15", {
     type: "geojson",
     data: route15,
   });
 
-  map.addLayer({
-    id: "route15",
-    type: "line",
-    source: "route15",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route15' adicionada");
+    map.addLayer({
+      id: "route15",
+      type: "line",
+      source: "route15",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route15' adicionada");
 
-  map.addSource("route16", {
+    console.log("[TRILHA] Adicionando route16...");
+    map.addSource("route16", {
     type: "geojson",
     data: route16,
   });
 
-  map.addLayer({
-    id: "route16",
-    type: "line",
-    source: "route16",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route16' adicionada");
+    map.addLayer({
+      id: "route16",
+      type: "line",
+      source: "route16",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route16' adicionada");
 
-  map.addSource("route17", {
+    console.log("[TRILHA] Adicionando route17...");
+    map.addSource("route17", {
     type: "geojson",
     data: route17,
   });
 
-  map.addLayer({
-    id: "route17",
-    type: "line",
-    source: "route17",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route17' adicionada");
+    map.addLayer({
+      id: "route17",
+      type: "line",
+      source: "route17",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route17' adicionada");
 
-  map.addSource("route18", {
+    console.log("[TRILHA] Adicionando route18...");
+    map.addSource("route18", {
     type: "geojson",
     data: route18,
   });
 
-  map.addLayer({
-    id: "route18",
-    type: "line",
-    source: "route18",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route18' adicionada");
+    map.addLayer({
+      id: "route18",
+      type: "line",
+      source: "route18",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route18' adicionada");
 
-  map.addSource("route19", {
+    console.log("[TRILHA] Adicionando route19...");
+    map.addSource("route19", {
     type: "geojson",
     data: route19,
   });
 
-  map.addLayer({
-    id: "route19",
-    type: "line",
-    source: "route19",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route19' adicionada");
+    map.addLayer({
+      id: "route19",
+      type: "line",
+      source: "route19",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route19' adicionada");
 
-  map.addSource("route20", {
+    console.log("[TRILHA] Adicionando route20...");
+    map.addSource("route20", {
     type: "geojson",
     data: route20,
   });
 
-  map.addLayer({
-    id: "route20",
-    type: "line",
-    source: "route20",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route20' adicionada");
+    map.addLayer({
+      id: "route20",
+      type: "line",
+      source: "route20",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route20' adicionada");
 
-  map.addSource("route21", {
+    console.log("[TRILHA] Adicionando route21...");
+    map.addSource("route21", {
     type: "geojson",
     data: route21,
   });
 
-  map.addLayer({
-    id: "route21",
-    type: "line",
-    source: "route21",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route21' adicionada");
+    map.addLayer({
+      id: "route21",
+      type: "line",
+      source: "route21",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route21' adicionada");
 
-  map.addSource("route22", {
+    console.log("[TRILHA] Adicionando route22...");
+    map.addSource("route22", {
     type: "geojson",
     data: route22,
   });
 
-  map.addLayer({
-    id: "route22",
-    type: "line",
-    source: "route22",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route22' adicionada");
+    map.addLayer({
+      id: "route22",
+      type: "line",
+      source: "route22",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route22' adicionada");
 
-  map.addSource("route23", {
+    console.log("[TRILHA] Adicionando route23...");
+    map.addSource("route23", {
     type: "geojson",
     data: route23,
   });
 
-  map.addLayer({
-    id: "route23",
-    type: "line",
-    source: "route23",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route23' adicionada");
+    map.addLayer({
+      id: "route23",
+      type: "line",
+      source: "route23",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route23' adicionada");
 
-  map.addSource("route24", {
+    console.log("[TRILHA] Adicionando route24...");
+    map.addSource("route24", {
     type: "geojson",
     data: route24,
   });
 
-  map.addLayer({
-    id: "route24",
-    type: "line",
-    source: "route24",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route24' adicionada");
+    map.addLayer({
+      id: "route24",
+      type: "line",
+      source: "route24",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route24' adicionada");
 
-  map.addSource("route25", {
+    console.log("[TRILHA] Adicionando route25...");
+    map.addSource("route25", {
     type: "geojson",
     data: route25,
   });
 
-  map.addLayer({
-    id: "route25",
-    type: "line",
-    source: "route25",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route25' adicionada");
+    map.addLayer({
+      id: "route25",
+      type: "line",
+      source: "route25",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route25' adicionada");
 
-  map.addSource("route26", {
+    console.log("[TRILHA] Adicionando route26...");
+    map.addSource("route26", {
     type: "geojson",
     data: route26,
   });
 
-  map.addLayer({
-    id: "route26",
-    type: "line",
-    source: "route26",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
-  });
+    console.log("[TRILHA] Fonte 'route26' adicionada");
+    map.addLayer({
+      id: "route26",
+      type: "line",
+      source: "route26",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route26' adicionada");
 
-  map.addSource("route27", {
+    console.log("[TRILHA] Adicionando route27...");
+    map.addSource("route27", {
     type: "geojson",
     data: route27,
   });
 
-  map.addLayer({
-    id: "route27",
-    type: "line",
-    source: "route27",
-    layout: {
-      "line-join": "round",
-      "line-cap": "round",
-    },
-    paint: {
-      "line-color": "#4e0801",
-      "line-width": 8,
-    },
+    console.log("[TRILHA] Fonte 'route27' adicionada");
+    map.addLayer({
+      id: "route27",
+      type: "line",
+      source: "route27",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#4e0801",
+        "line-width": 8,
+      },
+    });
+    console.log("[TRILHA] Camada 'route27' adicionada");
+    console.log("[TRILHA] ✓ Todas as 27 rotas foram carregadas com sucesso!");
   });
-});
 
-map.addControl(new mapboxgl.FullscreenControl());
-map.addControl(new mapboxgl.NavigationControl());
+  console.log("[TRILHA] Adicionando controles ao mapa (Fullscreen, Navigation)");
+  map.addControl(new mapboxgl.FullscreenControl());
+  map.addControl(new mapboxgl.NavigationControl());
+  console.log("[TRILHA] Controles adicionados com sucesso");
 
 function toggle3DView() {
   const botao = document.getElementById("toggle-3d-button");
@@ -2338,20 +2445,34 @@ function toggle3DView() {
 }
 
 // Executa quando a página carrega
+console.log("[TRILHA] Estado da página:", document.readyState);
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", carregarTrilhas);
+  console.log("[TRILHA] Página ainda está carregando. Aguardando DOMContentLoaded...");
+  document.addEventListener("DOMContentLoaded", function() {
+    console.log("[TRILHA] DOMContentLoaded disparado");
+    carregarTrilhas();
+  });
 } else {
+  console.log("[TRILHA] Página já foi carregada. Executando carregarTrilhas() imediatamente...");
   carregarTrilhas(); // Já carregou
 }
 
 // Função global para alternar visualização 3D (botão em Mapa-Baixada-Santista.html)
 window.toggle3DView = function () {
+  console.log("[TRILHA] toggle3DView() chamado");
   const m = window._trilhaMap;
-  if (!m) return;
+  if (!m) {
+    console.error("[TRILHA] ERRO: Mapa global window._trilhaMap não disponível");
+    return;
+  }
   const currentPitch = m.getPitch();
+  console.log("[TRILHA] Pitch atual:", currentPitch);
   if (currentPitch === 0) {
+    console.log("[TRILHA] Alternando para visualização 3D...");
     m.easeTo({ pitch: 60, bearing: -20, duration: 1000 });
   } else {
+    console.log("[TRILHA] Alternando para visualização 2D...");
     m.easeTo({ pitch: 0, bearing: 0, duration: 1000 });
   }
+  console.log("[TRILHA] Transição 3D/2D iniciada");
 };
