@@ -7,7 +7,7 @@ function carregarTrilhas() {
   }
 
   mapboxgl.accessToken =
-    "pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZjcHc2ZzA2Nm0ya29vejJuY2RiNmQifQ.UTVpTIpiYeCfsYxBp9h6kg";
+    "pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtMXZiZWl6cjA2ZDIya3ExbGllazlsYjcifQ.bK9NGwQvBX08a3NqTvqLJw";
 
 // Inicializa o mapa
   const map = new mapboxgl.Map({
