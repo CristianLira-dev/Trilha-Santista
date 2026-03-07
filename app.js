@@ -62,6 +62,7 @@ function createCard(trilha) {
         <div class="container-texto">
           <p><strong>Descrição:</strong> ${trilha.descricao}</p>
           <p><strong>Desnível positivo:</strong> ${trilha.desnivel}</p>
+          <p class="hide"><strong>Cidade:</strong> ${trilha.cidade}</p>
           <p class="clima-status" id="clima-${trilha.id}">Clima: carregando previsão...</p>
         </div>
       </div>
