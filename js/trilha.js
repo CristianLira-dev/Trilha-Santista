@@ -15,8 +15,7 @@ function carregarTrilhas() {
   console.log("[TRILHA] Mapbox GL JS carregado com sucesso");
 
   console.log("[TRILHA] Configurando token de acesso Mapbox...");
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtbWU3eWRlYzBicGczMW9ucHp5djBrcWkifQ.tu1dc-5mN0r20eEEmrF_AA";
+  mapboxgl.accessToken = "pk.eyJ1IjoiY3Jpcy1saXJhIiwiYSI6ImNtbWU3eWRlYzBicGczMW9ucHp5djBrcWkifQ.tu1dc-5mN0r20eEEmrF_AA";
   console.log("[TRILHA] Token configurado com sucesso");
 
   // Inicializa o mapa
